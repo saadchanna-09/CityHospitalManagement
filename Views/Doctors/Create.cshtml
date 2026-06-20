@@ -1,0 +1,54 @@
+@model CityHospitalManagement.Models.Doctor
+@{
+    ViewData["Title"] = "Add Consultant";
+}
+
+<div class="row justify-content-center my-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3 p-4 bg-white">
+            <h4 class="fw-bold text-dark mb-3">
+                <i class="fa-solid fa-user-doctor text-success me-2"></i>Provision New Consultant Profile [cite: 31]
+            </h4>
+            <p class="text-muted small">Enter consultant credentials matching your system configurations[cite: 31, 46].</p>
+            <hr />
+            <form action="/Doctors/Create" method="post">
+                @Html.AntiForgeryToken()
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Consultant Practitioner Name</label>
+                    <input name="FullName" class="form-control" placeholder="e.g., Dr. Saad Khan" required />
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Medical Specialization Domain</label>
+                    <input name="Specialization" class="form-control" placeholder="e.g., Cardiologist" required />
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Allocated Structural Care Wing</label>
+                    <select name="AssignedWard" class="form-select" required>
+                        <option value="General">General Ward</option>
+                        <option value="ICU">ICU Ward</option>
+                        <option value="Maternity">Maternity Ward</option>
+                        <option value="Pediatric">Pediatric Ward</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Consultation Shift Schedule Interval</label>
+                    <input name="ConsultationSchedule" class="form-control" placeholder="e.g., 09:00 AM - 01:00 PM" required />
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Capacity Limit Parameter (Derived Seed)</label>
+                    <input name="MaxPatientCapacity" type="number" class="form-control" value="42" required />
+                </div>
+                
+                <div class="d-flex gap-2 justify-content-end pt-2">
+                    <a href="/Doctors" class="btn btn-light rounded-pill px-4 small">Cancel Entry</a>
+                    <button type="submit" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">Save System Anchor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

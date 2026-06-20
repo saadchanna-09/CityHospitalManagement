@@ -1,0 +1,58 @@
+@model CityHospitalManagement.Models.Admission
+@{
+    ViewData["Title"] = "Allocate Bed";
+}
+
+<div class="row justify-content-center my-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3 p-4 bg-white">
+            <h4 class="fw-bold text-dark mb-3"><i class="fa-solid fa-bed text-danger me-2"></i>New Patient Admission / Bed Booking</h4>
+            <hr />
+            <form action="/Admissions/Create" method="post">
+                @Html.AntiForgeryToken()
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Select Patient</label>
+                    <select name="PatientId" class="form-select" asp-items="ViewBag.PatientId" required>
+                        <option value="">-- Choose Patient --</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Assign Doctor</label>
+                    <select name="DoctorId" class="form-select" asp-items="ViewBag.DoctorId" required>
+                        <option value="">-- Choose Doctor --</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Ward Location</label>
+                    <select name="WardType" class="form-select" required>
+                        <option value="General">General Ward</option>
+                        <option value="ICU">ICU Ward</option>
+                        <option value="Maternity">Maternity Ward</option>
+                        <option value="Pediatric">Pediatric Ward</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Bed Number</label>
+                    <input name="BedNumber" type="number" class="form-control" placeholder="e.g., 101" required />
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Admission Status</label>
+                    <select name="Status" class="form-select" required>
+                        <option value="Active">Active</option>
+                        <option value="Discharged">Discharged</option>
+                    </select>
+                </div>
+                
+                <div class="d-flex gap-2 justify-content-end pt-2">
+                    <a href="/Admissions" class="btn btn-light rounded-pill px-4 small">Cancel</a>
+                    <button type="submit" class="btn btn-danger rounded-pill px-4 shadow-sm fw-bold">Confirm Admission</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

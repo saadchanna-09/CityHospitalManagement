@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Executive Dashboard";
+    var doctorWorkload = ViewBag.DoctorWorkload as Dictionary<string, int> ?? new Dictionary<string, int>();
+    var wardSummaries = ViewBag.WardSummaries as Dictionary<string, int> ?? new Dictionary<string, int>();
+}
+
+<div class="container animate__animated animate__fadeIn">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="p-5 bg-white border rounded-3 shadow-sm d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+                <div>
+                    <span class="badge bg-danger text-uppercase px-3 py-2 mb-2">Audit Readiness Mode</span>
+                    <h1 class="display-6 fw-bold text-dark">MediCore Central Bed Telemetry Console</h1>
+                    <p class="text-muted m-0">Live workload monitoring, strict transactional bed constraints management, and analytics aggregation engines.</p>
+                </div>
+                <div class="text-end">
+                    <div class="h3 fw-bold text-primary m-0">GCN - 3</div>
+                    <span class="text-muted small">Config Matrix Track</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase small">Total Active Admissions</h6>
+                        <h2 class="fw-bold m-0">@wardSummaries.Sum(x => x.Value)</h2>
+                    </div>
+                    <i class="fa-solid fa-bed display-6 text-white-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-success text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase small">Wards Tracked</h6>
+                        <h2 class="fw-bold m-0">@wardSummaries.Count</h2>
+                    </div>
+                    <i class="fa-solid fa-hospital display-6 text-white-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-dark text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 text-uppercase small">Active Consultants</h6>
+                        <h2 class="fw-bold m-0">@doctorWorkload.Count</h2>
+                    </div>
+                    <i class="fa-solid fa-user-doctor display-6 text-white-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-3 p-3 bg-warning text-dark">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-dark-50 text-uppercase small">System Status</h6>
+                        <h2 class="fw-bold m-0" style="font-size: 1.5rem;"><i class="fa-solid fa-shield-halved me-1"></i> Compliant</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 bg-white">
+                <h5 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-chart-simple text-primary me-2"></i>Doctor Caseload Workload Distribution</h5>
+                <p class="text-muted small mb-4">Calculates live running aggregates of patient distribution lists under specific consultant IDs to evaluate clinical fatigue parameters.</p>
+                
+                @if(doctorWorkload.Any()) {
+                    foreach(var doc in doctorWorkload) {
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="fw-semibold text-secondary">@doc.Key</span>
+                                <span class="badge bg-light text-dark fw-bold">@doc.Value Active Shifts</span>
+                            </div>
+                            <div class="progress" style="height: 12px; border-radius: 30px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: @(doc.Value * 25)%;"></div>
+                            </div>
+                        </div>
+                    }
+                } else {
+                    <div class="text-center py-5 text-muted small">
+                        <i class="fa-solid fa-folder-open d-block display-6 text-muted mb-2"></i>
+                        No active allocations tracked. Seed records or add fresh entries via Bed Admissions.
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3 p-4 h-100 bg-white">
+                <h5 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-table-list text-success me-2"></i>Dynamic Ward Capacity Summary</h5>
+                <p class="text-muted small mb-4">Automated breakdown of current capacity profiles seeded directly through system registration keys logic constraints mapping.</p>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle m-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Ward Segment Identity</th>
+                                <th class="text-center">Live Occupied Units</th>
+                                <th class="text-end">Status Flags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(wardSummaries.Any()) {
+                                foreach(var ward in wardSummaries) {
+                                    <tr>
+                                        <td><strong class="text-dark">@ward.Key Ward</strong></td>
+                                        <td class="text-center"><span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold">@ward.Value Beds Booked</span></td>
+                                        <td class="text-end text-muted small"><i class="fa-solid fa-circle text-success me-1 small"></i> Operational</td>
+                                    </tr>
+                                }
+                            } else {
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted small">No real-time structural occupancy logs detected.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
