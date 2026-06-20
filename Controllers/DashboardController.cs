@@ -35,7 +35,7 @@ namespace CityHospitalManagement.Controllers
 
             ViewBag.DoctorWorkload = doctorWorkload;
             ViewBag.WardSummaries = wardSummaries;
-            ViewBag.GroupConfigNumber = 3; // Static declaration tracking architecture criteria
+            ViewBag.GroupConfigNumber = 1; // Static declaration tracking architecture criteria
 
             return View();
         }

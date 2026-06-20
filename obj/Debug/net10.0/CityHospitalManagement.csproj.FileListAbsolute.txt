@@ -212,3 +212,4 @@ C:\Users\USER\Desktop\web lab final\CityHospitalManagement\obj\Debug\net10.0\ref
 C:\Users\USER\Desktop\web lab final\CityHospitalManagement\obj\Debug\net10.0\CityHospitalManagement.pdb
 C:\Users\USER\Desktop\web lab final\CityHospitalManagement\obj\Debug\net10.0\CityHospitalManagement.genruntimeconfig.cache
 C:\Users\USER\Desktop\web lab final\CityHospitalManagement\obj\Debug\net10.0\ref\CityHospitalManagement.dll
+C:\Users\USER\Desktop\web lab final\CityHospitalManagement\obj\Debug\net10.0\CityHospitalManagement.sourcelink.json
